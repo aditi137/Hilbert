@@ -4,6 +4,7 @@
 # User-specific files
 *.suo
 *.user
+*.filters
 *.sln.docstates
 
 # Build results
@@ -45,6 +46,8 @@ build/
 *.pidb
 *.log
 *.scc
+*.sln
+*.vcxproj
 
 # Visual C++ cache files
 ipch/
