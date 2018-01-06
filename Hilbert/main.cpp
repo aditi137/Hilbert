@@ -1,24 +1,20 @@
-#include "capi.h"
+#include "Python.h"
 
 
-PyObject* some_func(PyObject* self, PyObject* args)
+static PyObject *HilbertError;
+
+static PyObject* some_func(PyObject* self, PyObject* args)
 {
 	__int64 input_value;
-	if (!PyArg_ParseTuple(args, "L", &input_value)) {
-		goto error;
-	}
+	if (!PyArg_ParseTuple(args, "L", &input_value))
+		return 0;
 	return PyLong_FromLongLong(input_value + 1);
-error:
-	return 0;
 }
 
-
 static PyMethodDef HilbertMethods[] = {
-	{ "add_one", PyCFunction(some_func), METH_VARARGS /* flag telling the interpreter the calling convention to be used for the C function */,
-	NULL },
-	{ NULL, NULL, 0, NULL }		/* Sentinel */
+	{ "add_one", (PyCFunction)some_func, METH_VARARGS /* flag telling the interpreter the calling convention to be used for the C function */ }//, NULL },
+	//{ NULL, NULL, 0, NULL }		/* Sentinel */
 };
-
 
 static struct PyModuleDef hilbertmodule = {
 	PyModuleDef_HEAD_INIT,
@@ -31,5 +27,17 @@ static struct PyModuleDef hilbertmodule = {
 
 PyMODINIT_FUNC PyInit_Hilbert(void)
 {
-	return PyModule_Create(&hilbertmodule);
+	PyObject *m = PyModule_Create(&hilbertmodule);
+	if (m == NULL)
+		return NULL;
+	HilbertError = PyErr_NewException("Hilbert.error", NULL, NULL);
+	Py_INCREF(HilbertError);
+	PyModule_AddObject(m, "error", HilbertError);
+	return m;
+}
+
+
+void main()
+{
+
 }
