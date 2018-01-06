@@ -8,14 +8,13 @@ C++ implementation of <>
 
 ## Setup
 MS Visual Studio (2013 and above) settings:
-- Go to ``Project > Hilbert properties > Configuration Properties`` <br>
-Change Configuration to ``Release`` mode. Alternately, for ``Debug`` mode, download Python Debug binaries first (requires VS 2015 or later)
+- Go to ``Project > Hilbert Properties > Configuration Properties`` <br>
+Change ``Configuration`` to ``Release`` mode. Alternately, for ``Debug`` mode, download Python Debug binaries first (requires VS 2015 or later)
 - Append ``$PYTHONPATH\include`` to ``Include Directories`` to include Python header file ``<Python.h>``.
 - Append ``$PYTHONPATH\libs`` to ``Library Directories`` for linker library file ``pythonXX.lib`` or ``pythonXX_d.lib``.
 
 ## Run
 <how to call/use wrapper>
-
 
 ## Project Structure
 Main project files:

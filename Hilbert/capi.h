@@ -8,7 +8,6 @@ static PyObject* hilbert_AxistoLine(PyObject *self, PyObject *args)
 {
 	const char *command;
 	int sts;
-
 	if (!PyArg_ParseTuple(args, "s", &command))
 		return NULL;
 	sts = system(command);
@@ -44,28 +43,4 @@ PyMODINIT_FUNC PyInit_spam(void)
 	Py_INCREF(HilbertError);
 	PyModule_AddObject(m, "error", HilbertError);
 	return m;
-}
-
-
-void main(int argc, char *argv[])
-{
-	wchar_t *program = Py_DecodeLocale(argv[0], NULL);
-	if (program == NULL) {
-		std::cerr << "Fatal error: cannot decode argv[0]\n";
-		exit(1);
-	}
-
-	/* Add a built-in module, before Py_Initialize */
-	PyImport_AppendInittab("hilbert", PyInit_spam);
-
-	/* Pass argv[0] to the Python interpreter */
-	Py_SetProgramName(program);
-
-	/* Initialize the Python interpreter. Required. */
-	Py_Initialize();
-
-	/* Optionally import the module; alternatively, import can be deferred until the embedded script imports it. */
-	PyImport_ImportModule("spam");
-
-	PyMem_RawFree(program);
 }
