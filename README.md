@@ -8,27 +8,26 @@ C++ implementation of []
 
 ## Setup
 MS Visual Studio (2013 and above) settings:
-- Go to `Project > Hilbert Properties... > Configuration Properties`
+1. Go to `Project > Hilbert Properties... > Configuration Properties`
 <br />
 With All Configurations:
-<br />
-- [ ] Chose VC++ Directories setting and append `$PYTHONPATH\include` to Include Directories for the Python header file `<Python.h>`.
-- [ ] Chose VC++ Directories setting and append `$PYTHONPATH\libs` to Library Directories for the linker library file `pythonXX.lib` or `pythonXX_d.lib`.
-- [ ] In General settings, change Target Extension to '.pyd'
+- Chose VC++ Directories setting and append ```$(PYTHONPATH)\include``` to Include Directories for the Python header file ```<Python.h>```. 
+- Chose VC++ Directories setting and append ``$(PYTHONPATH)\libs`` to Library Directories for the linker library file ```pythonXX.lib``` or ```pythonXX_d.lib```.
+- In General settings, change Target Extension to '.pyd'
 <br />
 Additionally for Debug Configuration:
-- [ ] In General settings, change Target Name to `$(ProjectName)_d`
-- Chose either Release or Debug under Solution Configurations. Note that for Debug mode, you need to have Python debug binaries downloaded first (requires VS 2015 or later).
+- In General settings, change Target Name to `$(ProjectName)_d`
+2. Chose either Release or Debug under Solution Configurations. Note that for Debug mode, you need to have Python debug binaries downloaded first (requires VS 2015 or later).
 
 ## Run
 With Release configuration, Build Visual Studio project.
 <br />
-From CMD, run `dir Hilbert\Release` to locate `Hilbert.pyd file`
+From CMD, run `dir Hilbert\Release` to locate `Hilbert.pyd file`.
 <br />
 
 Example commands:
 ```Shell
-cd Hilbert	# Project Directory
+cd Hilbert		# Project Directory
 set PYTHONPATH=Release\	# optional, to expose python Hilbert module globally
 python Hilbert\test.py
 ```
