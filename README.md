@@ -11,17 +11,19 @@ MS Visual Studio (2013 and above) settings:
 - Go to `Project > Hilbert Properties... > Configuration Properties`
 <br />
 With All Configurations:
-  - Chose VC++ Directories setting and append `$PYTHONPATH\include` to Include Directories for the Python header file `<Python.h>`.
-  - Chose VC++ Directories setting and append `$PYTHONPATH\libs` to Library Directories for the linker library file `pythonXX.lib` or `pythonXX_d.lib`.
-  - In General settings, change Target Extension to '.pyd'
+<br />
+- [ ] Chose VC++ Directories setting and append `$PYTHONPATH\include` to Include Directories for the Python header file `<Python.h>`.
+- [ ] Chose VC++ Directories setting and append `$PYTHONPATH\libs` to Library Directories for the linker library file `pythonXX.lib` or `pythonXX_d.lib`.
+- [ ] In General settings, change Target Extension to '.pyd'
+<br />
 Additionally for Debug Configuration:
-  - In General settings, change Target Name to `$(ProjectName)_d`
+- [ ] In General settings, change Target Name to `$(ProjectName)_d`
 - Chose either Release or Debug under Solution Configurations. Note that for Debug mode, you need to have Python debug binaries downloaded first (requires VS 2015 or later).
 
 ## Run
 With Release configuration, Build Visual Studio project.
 <br />
-Run `Shell dir Hilbert\Release` to locate `Hilbert.pyd file`
+From CMD, run `dir Hilbert\Release` to locate `Hilbert.pyd file`
 <br />
 
 Example commands:
