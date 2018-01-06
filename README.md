@@ -15,29 +15,38 @@ With All Configurations:
 -- In General settings, change Target Extension to '.pyd'
 Additionally for Debug Configuration:
 -- In General settings, change Target Name to ``$(ProjectName)_d``
-- Chose either Release/Debug under Solution Configurations. Note that for Debug mode, you need to have Python debug binaries downloaded first (requires VS 2015 or later).
+- Chose either Release or Debug under Solution Configurations. Note that for Debug mode, you need to have Python debug binaries downloaded first (requires VS 2015 or later).
 
 ## Run
 With Release configuration, Build Visual Studio project. <br>
-```Shell ls Hilbert\Release``` to locate ``Hilbert.pyd file`` <br>
+Run ```Shell dir Hilbert\Release``` to locate ``Hilbert.pyd file`` <br>
 
-Example commands:
+Example commands: <br>
 ```Shell
-cd Hilbert	#Project Directory
+cd Hilbert				# Project Directory
+set PYTHONPATH=Release\	# optional, to expose python Hilbert module globally
 python Hilbert\test.py
 ```
 
 For Debug mode, steps are similar as above. ``Hilbert_d.pyd`` file will be created under ``Hilbert\Debug`` and you may use the ``pythonXX_d.exe`` interpreter instead.
+<br>
 <how to call/use wrapper>
 
 ## Project Structure
 Main project files:
 ```
-Hilbert
+Hilbert\Hilbert
 |
-|- capi.cpp
-|- hilbert.cpp
-|- hilbert.h
+|- Header Files
+|		|- capi.h
+|		|- hilbert.h
+|
+|- Python Scripts
+|		|- test.py
+|
+|- Source Files
+		|- hilbert.cpp
+		|- main.cpp
 ```
 <file contents gist>
 
