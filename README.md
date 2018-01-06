@@ -25,8 +25,10 @@ MS Visual Studio (2013 and above) settings:
    From CMD, run `dir Hilbert\Release` to locate `Hilbert.pyd` file.
    <br />
    Example commands:
-   ```Shell  cd Hilbert		# Project Directory
-   python Hilbert\test.py```
+   ```Shell
+      cd Hilbert    # Project Directory
+      python Hilbert\test.py
+   ```
 2. For Debug mode, steps are similar as above. `Hilbert_d.pyd` file will be created under `Hilbert\Debug` and you may use the `pythonXX_d.exe` interpreter instead.
 3. [how to call/use wrapper]
 
