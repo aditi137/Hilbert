@@ -27,7 +27,7 @@ MS Visual Studio (2013 and above) settings:
    Example commands in `test.py`.
    ```Shell
    cd Hilbert\Hilbert
-   python Hilbert\test.py
+   python test.py
    ```
 2. For Debug mode, steps are similar as above. `Hilbert_d.pyd` file will be created under `Hilbert\Debug` and you may use the `pythonXX_d.exe` interpreter instead.
 3. [how to call/use wrapper]
