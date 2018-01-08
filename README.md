@@ -12,7 +12,8 @@ MS Visual Studio (2013 and above) settings:
 1. Go to `Project > Hilbert Properties... > Configuration Properties`. With All Configurations:
    - Chose VC++ Directories setting. Append `$(PYTHONPATH)\include` to Include Directories for the Python header file                  `<Python.h>` and append `$(PYTHONPATH)\libs` to Library Directories for the linker library file `pythonXX.lib` or `pythonXX_d.lib`.
    - Choose General settings and in Project Defaults, change Configuration Type to 'Dynamic Library (.dll)'.
-   - Under General settings, change Target Extension to '.pyd'. <br />
+   - Under General settings, change Target Extension to '.pyd'. 
+   <br /><br />
    Only for Debug Configuration:
    - Under General settings, change Target Name to `$(ProjectName)_d`.
 
@@ -23,10 +24,10 @@ MS Visual Studio (2013 and above) settings:
    <br />
    From CMD, run `dir Hilbert\Release` to locate `Hilbert.pyd` file.
    <br />
-   Example commands:
+   Example commands in `test.py`.
    ```Shell
-      cd Hilbert    # Project Directory
-      python Hilbert\test.py
+   cd Hilbert\Hilbert
+   python Hilbert\test.py
    ```
 2. For Debug mode, steps are similar as above. `Hilbert_d.pyd` file will be created under `Hilbert\Debug` and you may use the `pythonXX_d.exe` interpreter instead.
 3. [how to call/use wrapper]
