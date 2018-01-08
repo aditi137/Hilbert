@@ -121,12 +121,12 @@ static PyObject* AxestoTranspose(PyObject* self, PyObject* args)
 	
 	// return X as python list
 	for (i = 0; i < PyList_Size(pX); i++) {
-		PyList_SetItem(pX, i, PyLong_FromLong(X[i]));
+		pItem = PyLong_FromLong(X[i]);
+		PyList_SetItem(pX, i, pItem);
+		Py_DECREF(pItem);
+		Py_INCREF(pX);
 	}
-	if (!PyList_Check(pX)) {
-		PyErr_SetString(PyExc_TypeError, "Object is not a python list.");
-		return NULL;
-	}
+
 	return pX;
 }
 
