@@ -1,6 +1,6 @@
 # Derivative-free Global Optimization Using Space-filling Curves
 ## Hilbert Curve
-C++ implementation of ____
+C++ implementation of Space-filling curve
 - based on: [John Skilling] [link]
 - [insert algo/psuedo code]
 
@@ -8,13 +8,13 @@ C++ implementation of ____
 
 ## Setup
 MS Visual Studio (2013 and above) settings:
-1. Go to `Project > Hilbert Properties... > Configuration Properties`
-   <br />
-   With All Configurations:
-   - Chose VC++ Directories setting and append `$(PYTHONPATH)\include` to Include Directories for the Python header file                  `<Python.h>`. 
-   - Chose VC++ Directories setting and append `$(PYTHONPATH)\libs` to Library Directories for the linker library file `pythonXX.lib` or `pythonXX_d.lib`.
-   - In General settings, change Target Extension to '.pyd'.
-   - Only for Debug Configuration: Change Target Name to `$(ProjectName)_d`.
+1. Go to `Project > Hilbert Properties... > Configuration Properties`. With All Configurations:
+   - Chose VC++ Directories setting. Append `$(PYTHONPATH)\include` to Include Directories for the Python header file                  `<Python.h>` and append `$(PYTHONPATH)\libs` to Library Directories for the linker library file `pythonXX.lib` or `pythonXX_d.lib`.
+   - Choose General settings and in Project Defaults, change Configuration Type to 'Dynamic Library (.dll)'.
+   - Under General settings, change Target Extension to '.pyd'.
+   Only for Debug Configuration:
+   - Under General settings, change Target Name to `$(ProjectName)_d`.
+
 2. Chose either Release or Debug under Solution Configurations. Note that for Debug mode, you need to have Python debug binaries downloaded first (requires VS 2015 or later).
 
 ## Run

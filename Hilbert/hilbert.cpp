@@ -1,7 +1,6 @@
 #include "hilbert.h"
-#include <iostream>
 
-
+/*
 void LinetoAxes (
 	coord_t* Axes,	// multidimensional geometrical axes
 	coord_t* Line,	// linear serial # 
@@ -90,16 +89,31 @@ static void TransposetoLine(
 		}
 	}
 }
+*/
 
-
-static void TransposetoAxes(
-	coord_t* X,	// position
-	int b,		// #bits
-	int n)		// dimension
+static PyObject* TransposetoAxes(PyObject* self, PyObject* args)
 {
-	coord_t M = 2 << (b - 1), p, q, t;
-	int i;
+	coord_t* X = new coord_t;	// position
+	int b, n, i;				// # bits, dimension, counter
+	PyObject *pX, *pItem;
 
+	// assigning python input to c++ types
+	if (!PyArg_ParseTuple(args, "iiO!", &b, &n, &PyList_Type, &pX)) {
+		PyErr_SetString(PyExc_TypeError, "Parameters must be an int, an int, and a list.");
+		return NULL;
+	}
+
+	for (i = 0; i < PyList_Size(pX); i++) {
+		pItem = PyList_GetItem(pX, i);
+		if (!PyLong_Check(pItem)) {
+			PyErr_SetString(PyExc_TypeError, "List items must be integers.");
+			return NULL;
+		}
+		X[i] = PyLong_AsUnsignedLong(pItem);
+	}
+
+	// TransposetoAxes ...
+	coord_t M = 2 << (b - 1), p, q, t;
 	// Gray decode by H ^ (H/2)
 	t = X[n - 1] >> 1;
 	for (i = n - 1; i > 0; i--)
@@ -121,16 +135,42 @@ static void TransposetoAxes(
 			}
 		}
 	}
+
+	// return X as python list
+	for (i = 0; i < PyList_Size(pX); i++) {
+		pItem = PyLong_FromLong(X[i]);
+		PyList_SetItem(pX, i, pItem);
+		Py_DECREF(pItem);
+		Py_INCREF(pX);
+	}
+
+	return pX;
 }
 
 
-static void AxestoTranspose(
-	coord_t* X,	// position
-	int b,		// # bits
-	int n)		// dimension
+static PyObject* AxestoTranspose(PyObject* self, PyObject* args)
 {
+	coord_t* X = new coord_t;	// position
+	int b, n, i;				// # bits, dimension, counter
+	PyObject *pX, *pItem;
+
+	// assigning python input to c++ types
+	if (!PyArg_ParseTuple(args, "iiO!", &b, &n, &PyList_Type, &pX)) {
+		PyErr_SetString(PyExc_TypeError, "Parameters must be an int, an int, and a list.");
+		return NULL;
+	}
+
+	for (i = 0; i < PyList_Size(pX); i++) {
+		pItem = PyList_GetItem(pX, i);
+		if (!PyLong_Check(pItem)) {
+			PyErr_SetString(PyExc_TypeError, "List items must be integers.");
+			return NULL;
+		}
+		X[i] = PyLong_AsUnsignedLong(pItem);
+	}
+
+	// AxestoTranspose ...
 	coord_t M = 1 << (b - 1), p, q, t;
-	int i;
 	// Inverse undo
 	for (q = M; q > 1; q >>= 1) {
 		p = q - 1;
@@ -151,21 +191,18 @@ static void AxestoTranspose(
 		X[i] ^= X[i - 1];
 	t = 0;
 	for (q = M; q > 1; q >>= 1)
-		if (X[n - 1] & q)
-			t ^= q - 1;
+	if (X[n - 1] & q)
+		t ^= q - 1;
 	for (i = 0; i < n; i++)
 		X[i] ^= t;
-}
 
-//
-//// entry point for Hilbert.cpp
-//void main() {
-//	coord_t X[3] = {5, 10, 20};	// any position in 32x32x32 cube
-//	AxestoTranspose(X, 5, 3);	// Hilbert transpose for 5 bits and 3 dimensions
-//	std::cout << "Hilbert integer = ";	// check = 7865 or 001111010111001
-//	std::cout << (X[0] >> 4 & 1) << (X[1] >> 4 & 1) << (X[2] >> 4 & 1) << (X[0] >> 3 & 1) << (X[1] >> 3 & 1);
-//	std::cout << (X[2] >> 3 & 1) << (X[0] >> 2 & 1) << (X[1] >> 2 & 1) << (X[2] >> 2 & 1) << (X[0] >> 1 & 1),
-//	std::cout << (X[1] >> 1 & 1) << (X[2] >> 1 & 1) << (X[0] >> 0 & 1) << (X[1] >> 0 & 1) << (X[2] >> 0 & 1);
-//	
-//	std::cin.get();
-//}
+	// return X as python list
+	for (i = 0; i < PyList_Size(pX); i++) {
+		pItem = PyLong_FromLong(X[i]);
+		PyList_SetItem(pX, i, pItem);
+		Py_DECREF(pItem);
+		Py_INCREF(pX);
+	}
+	Py_DECREF(pX);
+	return pX;
+}

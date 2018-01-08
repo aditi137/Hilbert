@@ -1,10 +1,12 @@
 //=============================================================================
 //              Hilbert-curve (a space-filling Peano curve) library
 //=============================================================================
+#include <Python.h>
+
 #ifndef HILBERT_H
 #define HILBERT_H
 
-typedef unsigned int coord_t;	// char, short, int for upto 8, 16, 32 bits per word
+typedef unsigned long coord_t;	// char, short, int for upto 8, 16, 32 bits per word
 
 #ifdef __cplusplus
 extern "C" {
@@ -99,8 +101,8 @@ extern "C" {
 //                          high  low                    0------ X[0]
 //            Axes are stored conventially as b-bit integers.
 //-----------------------------------------------------------------------------
-	static void TransposetoAxes(coord_t*, int, int);	// position, # bits, dimension
-	static void AxestoTranspose(coord_t*, int, int);	// position, # bits, dimension
+	static PyObject* TransposetoAxes(PyObject*, PyObject*);	// # bits, dimension, position
+	static PyObject* AxestoTranspose(PyObject*, PyObject*);	// # bits, dimension, position
 #ifdef __cplusplus
 };
 #endif
