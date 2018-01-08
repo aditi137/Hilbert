@@ -1,3 +1,4 @@
+//TODO: Unhandled exception, most probably a memory leak somewhere
 #include "hilbert.h"
 
 /*
@@ -138,12 +139,9 @@ static PyObject* TransposetoAxes(PyObject* self, PyObject* args)
 
 	// return X as python list
 	for (i = 0; i < PyList_Size(pX); i++) {
-		pItem = PyLong_FromLong(X[i]);
-		PyList_SetItem(pX, i, pItem);
-		Py_DECREF(pItem);
-		Py_INCREF(pX);
+		PyList_SetItem(pX, i, PyLong_FromLong(X[i]));
 	}
-
+	delete X;
 	return pX;
 }
 
@@ -198,11 +196,8 @@ static PyObject* AxestoTranspose(PyObject* self, PyObject* args)
 
 	// return X as python list
 	for (i = 0; i < PyList_Size(pX); i++) {
-		pItem = PyLong_FromLong(X[i]);
-		PyList_SetItem(pX, i, pItem);
-		Py_DECREF(pItem);
-		Py_INCREF(pX);
+		PyList_SetItem(pX, i, PyLong_FromLong(X[i]));
 	}
-	Py_DECREF(pX);
+	delete X;
 	return pX;
 }
