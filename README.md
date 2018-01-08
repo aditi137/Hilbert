@@ -39,7 +39,6 @@ Hilbert\Hilbert
 |
 |- Header Files
 |		|
-|		|- capi.h
 |		|- hilbert.h
 |
 |- Python Scripts
@@ -49,7 +48,7 @@ Hilbert\Hilbert
 |- Source Files
 		|
 		|- hilbert.cpp
-		|- main.cpp
+		|- capi.cpp
 ```
 [file contents gist]
 Uses the Python-C API
