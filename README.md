@@ -50,5 +50,6 @@ Hilbert\Hilbert
 		|- main.cpp
 ```
 [file contents gist]
+Uses the Python-C API
 
 NOTE: README in progress.
