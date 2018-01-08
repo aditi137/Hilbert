@@ -1,4 +1,5 @@
 #include "Python.h"
+//TODO: organize definitions in main.cpp, hilbert.cpp, hilbert.h
 //#include "hilbert.h"
 #include <iostream>
 
@@ -76,13 +77,12 @@ static PyObject* AxestoTranspose(PyObject* self, PyObject* args)
 	int b, n, i;				// # bits, dimension, counter
 	PyObject *pX, *pItem;
 
+	// assigning python input to c++ types
 	if (!PyArg_ParseTuple(args, "iiO!", &b, &n, &PyList_Type, &pX)) {
 		PyErr_SetString(PyExc_TypeError, "Parameters must be an int, an int, and a list.");
 		return NULL;
 	}
-	//PyArg_ParseTuple(args, "ii", &b, &n);
-	std::cout << "b = " << b << ", n = " << n << std::endl;
-	std::cout << "Check 1\nX = [";
+
 	for (i = 0; i < PyList_Size(pX); i++) {
 		pItem = PyList_GetItem(pX, i);
 		if (!PyLong_Check(pItem)) {
@@ -90,10 +90,9 @@ static PyObject* AxestoTranspose(PyObject* self, PyObject* args)
 			return NULL;
 		}
 		X[i] = PyLong_AsUnsignedLong(pItem);
-		std::cout << X[i] << " ";
 	}
-	std::cout << "]\nCheck 2.\nX new = [";
 	
+	// AxestoTranspose ...
 	coord_t M = 1 << (b - 1), p, q, t;
 	// Inverse undo
 	for (q = M; q > 1; q >>= 1) {
@@ -120,12 +119,15 @@ static PyObject* AxestoTranspose(PyObject* self, PyObject* args)
 	for (i = 0; i < n; i++)
 		X[i] ^= t;
 	
+	// return X as python list
 	for (i = 0; i < PyList_Size(pX); i++) {
-		std::cout << X[i] << ' ';
+		PyList_SetItem(pX, i, PyLong_FromLong(X[i]));
 	}
-	std::cout << "]\nCheck 3.\n";
-
-	return Py_BuildValue("[I,I,I]", X[0], X[1], X[2]);
+	if (!PyList_Check(pX)) {
+		PyErr_SetString(PyExc_TypeError, "Object is not a python list.");
+		return NULL;
+	}
+	return pX;
 }
 
 /*
@@ -162,7 +164,7 @@ PyMODINIT_FUNC PyInit_Hilbert(void)
 {
 	static PyMethodDef HilbertMethods[] = {
 		{ "add_one", some_func, METH_VARARGS /* flag telling the interpreter the calling convention to be used for the C function */, NULL },
-		{"r2t", AxestoTranspose, METH_VARARGS, NULL},
+		{"r2t", AxestoTranspose, METH_VARARGS, "Real to Transpose"},
 		{ NULL, NULL, 0, NULL }		/* Sentinel */
 	};
 
@@ -185,4 +187,4 @@ void main()
 {
 
 }
-//TODO: add exception handling for each function
+//TODO: add py-c implementation and exception handling for remaining functions
