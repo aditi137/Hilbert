@@ -70,8 +70,8 @@ extern "C" {
 //            the Hilbert curve is maximally local.
 //        (2) CPU proportional to total number of bits, = b * n.
 //-----------------------------------------------------------------------------
-	extern void LinetoAxes(coord_t*, coord_t*, int, int);	// multi-dimensional geometrical axes, linear serial #, # bits, dimension
-	extern void AxestoLine(coord_t*, coord_t*, int, int);	// linear serial #, multi-dimensional geometrical axes, # bits, dimension
+	static PyObject* LinetoAxes(PyObject*, PyObject*);	// multi-dimensional geometrical axes, linear serial #, # bits, dimension
+	static PyObject* AxestoLine(PyObject*, PyObject*);	// linear serial #, multi-dimensional geometrical axes, # bits, dimension
 
 
 // Functions: LinetoTranspose
@@ -100,9 +100,10 @@ extern "C" {
 //                   X[2] = C F I L O               axes |/
 //                          high  low                    0------ X[0]
 //            Axes are stored conventially as b-bit integers.
+//			  The Hilbert index is expressed as an array of transposed bits.
 //-----------------------------------------------------------------------------
-	static PyObject* TransposetoAxes(PyObject*, PyObject*);	// # bits, dimension, position
-	static PyObject* AxestoTranspose(PyObject*, PyObject*);	// # bits, dimension, position
+	static void TransposetoAxes(coord_t*, int, int);	// # bits per coordinate, dimension, position
+	static void AxestoTranspose(coord_t*, int, int);	// # bits: depth of the Hilbert curve, dimension, position
 #ifdef __cplusplus
 };
 #endif
